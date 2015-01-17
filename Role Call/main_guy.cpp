@@ -1,6 +1,7 @@
 #include "main_game.h"
 #include "main_guy.h"
 #include "bullet.h"
+#include "player_bullet.h"
 
 main_guy::main_guy(EntityManager* entityManager, Map* map, float x, float y)
 {
@@ -21,11 +22,11 @@ bool main_guy::Update(sf::RenderWindow* window)
 	{
 		if (this->velocity.y > 0)
 		{
-			this->direction = 315.0f;
+			this->direction = 45.0f;
 		}
 		else if (this->velocity.y < 0)
 		{
-			this->direction = 225.0f;
+			this->direction = 315.0f;
 		}
 		else
 		{
@@ -61,40 +62,44 @@ bool main_guy::Update(sf::RenderWindow* window)
 
 	if (this->getPosition().y <= 0)
 	{
-		nextArea = map->topArea;
-		startingX = this->getPosition().x;
-		startingY = window->getSize().y - this->getGlobalBounds().height - 32;
+		saveSystem.currentMap = map->topArea;
+		saveSystem.x = this->getPosition().x;
+		saveSystem.y = window->getSize().y - this->getGlobalBounds().height - 32;
 		coreState.SetState(new main_game());
 		return false;
 	}
 	if (this->getPosition().y + this->getGlobalBounds().height >= window->getSize().y)
 	{
-		nextArea = map->bottomArea;
-		startingX = this->getPosition().x;
-		startingY = 32;
+		saveSystem.currentMap = map->bottomArea;
+		saveSystem.x = this->getPosition().x;
+		saveSystem.y = 32;
 		coreState.SetState(new main_game());
 		return false;
 	}
 	if (this->getPosition().x <= 0)
 	{
-		nextArea = map->leftArea;
-		startingX = window->getSize().x - this->getGlobalBounds().width - 32;
-		startingY = this->getPosition().y;
+		saveSystem.currentMap = map->leftArea;
+		saveSystem.x = window->getSize().x - this->getGlobalBounds().width - 32;
+		saveSystem.y = this->getPosition().y;
 		coreState.SetState(new main_game());
 		return false;
 	}
 	if (this->getPosition().x + this->getGlobalBounds().width >= window->getSize().x)
 	{
-		nextArea = map->rightArea;
-		startingX = 32;
-		startingY = this->getPosition().y;
+		saveSystem.currentMap = map->rightArea;
+		saveSystem.x = 32;
+		saveSystem.y = this->getPosition().y;
 		coreState.SetState(new main_game());
 		return false;
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space) && !this->spaceKey)
 	{
-		this->entityManager->Add("bullet", new Bullet(this->getPosition().x, this->getPosition().y, direction, 32));
+		this->entityManager->Add("bullet", new Bullet(this->map, this->getPosition().x, this->getPosition().y, direction, 32));
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::X) && !this->xKey)
+	{
+		this->entityManager->Add("pBullet", new PlayerBullet(this->map, this->getPosition().x, this->getPosition().y, direction, 800));
 	}
 
 	switch (this->map->CheckCollision(this, NONE))
@@ -113,22 +118,23 @@ bool main_guy::Update(sf::RenderWindow* window)
 
 	if (this->map->CheckCollision(this, LEFT) > 2)
 	{
-		this->move(-abs(this->velocity.x), 0);
+		this->move(-abs(this->speed), 0);
 	}
 	if (this->map->CheckCollision(this, RIGHT) > 2)
 	{
-		this->move(abs(this->velocity.x), 0);
+		this->move(abs(this->speed), 0);
 	}
 	if (this->map->CheckCollision(this, UP) > 2)
 	{
-		this->move(0, abs(this->velocity.y));
+		this->move(0, abs(this->speed));
 	}
 	if (this->map->CheckCollision(this, DOWN) > 2)
 	{
-		this->move(0, -abs(this->velocity.y));
+		this->move(0, -abs(this->speed));
 	}
 
 	this->spaceKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space);
+	this->xKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::X);
 
 	Entity::Update(window);
 	return true;

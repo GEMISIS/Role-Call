@@ -3,8 +3,7 @@
 #include "entity.h"
 #include "map.h"
 
-extern std::string nextArea;
-extern float startingX, startingY;
+extern SaveSystem saveSystem;
 
 class main_guy : public Entity
 {
@@ -16,7 +15,7 @@ private:
 	Map* map;
 	float speed;
 	EntityManager* entityManager;
-	bool spaceKey;
+	bool spaceKey, xKey;
 	float direction;
 };
 

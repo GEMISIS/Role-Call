@@ -8,12 +8,13 @@
 
 #include "map.h"
 
+#include "SaveSystem.h"
+
 #define ENEMY_AMMO 5
 #define PLAYER_AMMO 3
 
 extern bool gameOver;
-extern float startingX, startingY;
-extern std::string nextArea;
+extern SaveSystem saveSystem;
 
 class main_game : public tiny_state
 {
@@ -34,5 +35,5 @@ private:
 
 	EntityManager* manager;
 
-	Map map;
+	Map* map;
 };

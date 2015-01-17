@@ -15,8 +15,8 @@ void Speech::SetText(std::string text)
 {
 	this->speaking = true;
 	this->setString(text);
-	float scaleWidth = sf::Text::getGlobalBounds().width / sf::Sprite::getGlobalBounds().width + 0.2f;
-	float scaleHeight = sf::Text::getGlobalBounds().height / sf::Sprite::getGlobalBounds().height + 0.2f;
+	float scaleWidth = sf::Text::getGlobalBounds().width / sf::Sprite::getTextureRect().width + 0.2f;
+	float scaleHeight = sf::Text::getGlobalBounds().height / sf::Sprite::getTextureRect().height + 0.2f;
 
 	sf::Sprite::setScale(scaleWidth, scaleHeight);
 

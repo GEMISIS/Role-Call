@@ -3,7 +3,8 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 
-#include "entity.h"
+#include "entity_manager.h"
+#include "speech.h"
 
 typedef enum
 {
@@ -11,15 +12,19 @@ typedef enum
 	LEFT = 0,
 	RIGHT = 1,
 	UP = 2,
-	DOWN = 3
+	DOWN = 3,
+	TOP_LEFT = 4,
+	TOP_RIGHT = 5,
+	BOTTOM_LEFT = 6,
+	BOTTOM_RIGHT = 7
 }Direction;
 
 class Map : public sf::Sprite
 {
 public:
-	Map();
+	Map(EntityManager* entityManager);
 
-	void Load(std::string filename);
+	void Load(std::string filename, Speech* speech);
 
 	virtual void Update(sf::RenderWindow* window);
 
@@ -38,5 +43,6 @@ protected:
 private:
 	sf::Texture* texture;
 	sf::Image* tileSetTexture;
+	EntityManager* entityManager;
 };
 

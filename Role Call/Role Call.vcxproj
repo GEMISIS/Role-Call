@@ -70,6 +70,7 @@
   <ItemGroup>
     <ClCompile Include="base_npc.cpp" />
     <ClCompile Include="bullet.cpp" />
+    <ClCompile Include="enemy.cpp" />
     <ClCompile Include="entity.cpp" />
     <ClCompile Include="entity_manager.cpp" />
     <ClCompile Include="game_over.cpp" />
@@ -86,6 +87,7 @@
   <ItemGroup>
     <ClInclude Include="base_npc.h" />
     <ClInclude Include="bullet.h" />
+    <ClInclude Include="enemy.h" />
     <ClInclude Include="entity.h" />
     <ClInclude Include="entity_manager.h" />
     <ClInclude Include="game_over.h" />
@@ -95,6 +97,12 @@
     <ClInclude Include="main_guy.h" />
     <ClInclude Include="main_menu.h" />
     <ClInclude Include="map.h" />
+    <ClInclude Include="mob1.h" />
+    <ClInclude Include="mob2.h" />
+    <ClInclude Include="npc1.h" />
+    <ClInclude Include="npc2.h" />
+    <ClInclude Include="player_bullet.h" />
+    <ClInclude Include="SaveSystem.h" />
     <ClInclude Include="score.h" />
     <ClInclude Include="speech.h" />
     <ClInclude Include="win_screen.h" />

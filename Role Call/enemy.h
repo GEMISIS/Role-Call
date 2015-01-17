@@ -3,13 +3,14 @@
 #include "entity.h"
 #include "map.h"
 
-class Bullet : public Entity
+class enemy : public Entity
 {
 public:
-	Bullet(Map* map, float x, float y, float direction, float distance);
+	enemy(Map* map, float x, float y);
 	bool Update(sf::RenderWindow* window);
 	void Collision(Entity* entity);
-private:
+protected:
 	Map* map;
-	float distance;
+	int health;
 };
+

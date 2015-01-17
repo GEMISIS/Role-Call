@@ -22,7 +22,7 @@ void base_npc::Collision(Entity* entity)
 	switch (entity->GroupID())
 	{
 	case 2:
-		speech->SetText("Hello world");
+		speech->SetText(this->text);
 		entity->Destroy();
 		break;
 	}

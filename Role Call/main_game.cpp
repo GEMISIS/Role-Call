@@ -4,12 +4,10 @@
 #include "win_screen.h"
 
 #include "main_guy.h"
-#include "base_npc.h"
+#include "enemy.h"
 
 bool gameOver = false;
-float startingX = 1280 / 2;
-float startingY = 768 / 2;
-std::string nextArea = "test.map";
+SaveSystem saveSystem;
 
 void main_game::Initialize(sf::RenderWindow* window)
 {
@@ -29,10 +27,10 @@ void main_game::Initialize(sf::RenderWindow* window)
 
 	manager = new EntityManager();
 
-	map.Load(nextArea);
+	map = new Map(manager);
+	map->Load(saveSystem.currentMap, this->speech);
 
-	this->manager->Add("main_guy", new main_guy(manager, &map, startingX, startingY));
-	this->manager->Add("main_gal", new base_npc(this->speech, &map, 200, 200));
+	this->manager->Add("main_guy", new main_guy(manager, map, saveSystem.x, saveSystem.y));
 }
 void main_game::Update(sf::RenderWindow* window)
 {
@@ -78,7 +76,7 @@ void main_game::Update(sf::RenderWindow* window)
 }
 void main_game::Render(sf::RenderWindow* window)
 {
-	window->draw(map);
+	window->draw(*map);
 	this->manager->Render(window);
 	window->draw(*this->score);
 	window->draw(*this->lives);

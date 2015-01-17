@@ -31,6 +31,12 @@
     <Filter Include="Source Files\States">
       <UniqueIdentifier>{269ce5fe-0404-486b-986e-bbd94c418ad6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Entities\Enemies">
+      <UniqueIdentifier>{34ea5a29-30eb-487e-a161-bb50189777d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Entities\NPC">
+      <UniqueIdentifier>{46eebc27-5059-47be-bd61-1063f5f2dfc2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -73,6 +79,9 @@
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
     <ClCompile Include="base_npc.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="enemy.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
   </ItemGroup>
@@ -118,6 +127,27 @@
     </ClInclude>
     <ClInclude Include="base_npc.h">
       <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="enemy.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="player_bullet.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="mob1.h">
+      <Filter>Header Files\Entities\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="mob2.h">
+      <Filter>Header Files\Entities\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="npc2.h">
+      <Filter>Header Files\Entities\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="npc1.h">
+      <Filter>Header Files\Entities\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveSystem.h">
+      <Filter>Header Files\Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

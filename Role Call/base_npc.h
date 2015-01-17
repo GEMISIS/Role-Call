@@ -9,8 +9,10 @@ public:
 	base_npc(Speech* speech, Map* map, float x, float y);
 	bool Update(sf::RenderWindow* window);
 	void Collision(Entity* entity);
-private:
+protected:
+	std::string text;
 	Map* map;
+private:
 	Speech* speech;
 };
 

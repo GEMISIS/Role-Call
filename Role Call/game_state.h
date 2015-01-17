@@ -2,6 +2,10 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "SaveSystem.h"
+
+extern SaveSystem saveSystem;
+
 class tiny_state
 {
 public:
@@ -41,6 +45,7 @@ public:
 		{
 			this->state->Destroy(this->window);
 		}
+		saveSystem.Save();
 		this->state = state;
 		if (this->state != NULL)
 		{

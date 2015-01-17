@@ -3,14 +3,20 @@
 #include <sstream>
 
 #include "map.h"
+#include "npc1.h"
+#include "npc2.h"
+#include "mob1.h"
+#include "mob2.h"
+#include "enemy.h"
 
-Map::Map()
+Map::Map(EntityManager* entityManager)
 {
 	this->texture = new sf::Texture();
 	this->tileSetTexture = new sf::Image();
+	this->entityManager = entityManager;
 }
 
-void Map::Load(std::string filename)
+void Map::Load(std::string filename, Speech* speech)
 {
 	std::string temp;
 	std::ifstream mapFile("Graphics/maps/" + filename);
@@ -82,6 +88,26 @@ void Map::Load(std::string filename)
 			case 5:
 				this->texture->update(tile5, x * 64, y * 64);
 				break;
+			case 6:
+				this->texture->update(tile1, x * 64, y * 64);
+				this->entityManager->Add("npc1", new Npc1(speech, this, x * 64, y * 64));
+				this->data[x + y * this->width] = 1;
+				break;
+			case 7:
+				this->texture->update(tile1, x * 64, y * 64);
+				this->entityManager->Add("npc2", new Npc2(speech, this, x * 64, y * 64));
+				this->data[x + y * this->width] = 1;
+				break;
+			case 8:
+				this->texture->update(tile1, x * 64, y * 64);
+				this->entityManager->Add("mob1", new Mob1(this, x * 64, y * 64));
+				this->data[x + y * this->width] = 1;
+				break;
+			case 9:
+				this->texture->update(tile1, x * 64, y * 64);
+				this->entityManager->Add("mob2", new Mob2(this, x * 64, y * 64));
+				this->data[x + y * this->width] = 1;
+				break;
 			}
 		}
 	}
@@ -101,17 +127,33 @@ int Map::CheckCollision(Entity* entity, Direction direction)
 	{
 	case LEFT:
 		x = (int)(entity->getPosition().x + entity->getGlobalBounds().width) / this->tileWidth;
-		y = (int)(entity->getPosition().y) / this->tileHeight;
+		y = (int)(entity->getPosition().y + entity->getGlobalBounds().height / 2) / this->tileHeight;
 		break;
 	case RIGHT:
 		x = (int)(entity->getPosition().x) / this->tileWidth;
-		y = (int)(entity->getPosition().y) / this->tileHeight;
+		y = (int)(entity->getPosition().y + entity->getGlobalBounds().height / 2) / this->tileHeight;
 		break;
 	case UP:
-		x = (int)(entity->getPosition().x) / this->tileWidth;
+		x = (int)(entity->getPosition().x + entity->getGlobalBounds().width / 2) / this->tileWidth;
 		y = (int)(entity->getPosition().y) / this->tileHeight;
 		break;
 	case DOWN:
+		x = (int)(entity->getPosition().x + entity->getGlobalBounds().width / 2) / this->tileWidth;
+		y = (int)(entity->getPosition().y + entity->getGlobalBounds().height) / this->tileHeight;
+		break;
+	case TOP_LEFT:
+		x = (int)(entity->getPosition().x + entity->getGlobalBounds().width) / this->tileWidth;
+		y = (int)(entity->getPosition().y) / this->tileHeight;
+		break;
+	case TOP_RIGHT:
+		x = (int)(entity->getPosition().x) / this->tileWidth;
+		y = (int)(entity->getPosition().y) / this->tileHeight;
+		break;
+	case BOTTOM_LEFT:
+		x = (int)(entity->getPosition().x + entity->getGlobalBounds().width) / this->tileWidth;
+		y = (int)(entity->getPosition().y + entity->getGlobalBounds().height) / this->tileHeight;
+		break;
+	case BOTTOM_RIGHT:
 		x = (int)(entity->getPosition().x) / this->tileWidth;
 		y = (int)(entity->getPosition().y + entity->getGlobalBounds().height) / this->tileHeight;
 		break;
