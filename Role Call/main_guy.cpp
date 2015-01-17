@@ -1,19 +1,63 @@
 #include "main_game.h"
 #include "main_guy.h"
+#include "bullet.h"
 
-main_guy::main_guy(Map* map, float x, float y)
+main_guy::main_guy(EntityManager* entityManager, Map* map, float x, float y)
 {
 	this->Load("ship.png");
 	this->setPosition(x, y);
 	this->map = map;
 	this->speed = 1.0f;
 	this->groupId = 1;
+	this->entityManager = entityManager;
 }
 
 bool main_guy::Update(sf::RenderWindow* window)
 {
 	this->velocity.x = (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right) - sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left)) * this->speed;
 	this->velocity.y = (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down) - sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up)) * this->speed;
+
+	if (this->velocity.x > 0)
+	{
+		if (this->velocity.y > 0)
+		{
+			this->direction = 315.0f;
+		}
+		else if (this->velocity.y < 0)
+		{
+			this->direction = 225.0f;
+		}
+		else
+		{
+			this->direction = 0.0f;
+		}
+	}
+	else if (this->velocity.x < 0)
+	{
+		if (this->velocity.y > 0)
+		{
+			this->direction = 135.0f;
+		}
+		else if (this->velocity.y < 0)
+		{
+			this->direction = 225.0f;
+		}
+		else
+		{
+			this->direction = 180.0f;
+		}
+	}
+	else
+	{
+		if (this->velocity.y > 0)
+		{
+			this->direction = 90.0f;
+		}
+		else if (this->velocity.y < 0)
+		{
+			this->direction = 270.0f;
+		}
+	}
 
 	if (this->getPosition().y <= 0)
 	{
@@ -48,6 +92,11 @@ bool main_guy::Update(sf::RenderWindow* window)
 		return false;
 	}
 
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space) && !this->spaceKey)
+	{
+		this->entityManager->Add("bullet", new Bullet(this->getPosition().x, this->getPosition().y, direction, 32));
+	}
+
 	switch (this->map->CheckCollision(this, NONE))
 	{
 	case 0:
@@ -79,11 +128,19 @@ bool main_guy::Update(sf::RenderWindow* window)
 		this->move(0, -abs(this->velocity.y));
 	}
 
+	this->spaceKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space);
+
 	Entity::Update(window);
 	return true;
 }
 
 void main_guy::Collision(Entity* entity)
 {
+	switch (entity->GroupID())
+	{
+	case 3:
+		this->move(-this->velocity.x, -this->velocity.y);
+		break;
+	}
 }
 

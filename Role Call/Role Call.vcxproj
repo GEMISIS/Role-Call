@@ -68,6 +68,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="base_npc.cpp" />
     <ClCompile Include="bullet.cpp" />
     <ClCompile Include="entity.cpp" />
     <ClCompile Include="entity_manager.cpp" />
@@ -83,6 +84,7 @@
     <ClCompile Include="win_screen.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="base_npc.h" />
     <ClInclude Include="bullet.h" />
     <ClInclude Include="entity.h" />
     <ClInclude Include="entity_manager.h" />

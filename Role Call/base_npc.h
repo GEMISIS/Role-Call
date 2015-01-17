@@ -1,0 +1,16 @@
+#pragma once
+
+#include "entity.h"
+#include "map.h"
+
+class base_npc : public Entity
+{
+public:
+	base_npc(Speech* speech, Map* map, float x, float y);
+	bool Update(sf::RenderWindow* window);
+	void Collision(Entity* entity);
+private:
+	Map* map;
+	Speech* speech;
+};
+

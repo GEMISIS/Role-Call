@@ -9,11 +9,14 @@ extern float startingX, startingY;
 class main_guy : public Entity
 {
 public:
-	main_guy(Map* map, float x, float y);
+	main_guy(EntityManager* entityManager, Map* map, float x, float y);
 	bool Update(sf::RenderWindow* window);
 	void Collision(Entity* entity);
 private:
 	Map* map;
 	float speed;
+	EntityManager* entityManager;
+	bool spaceKey;
+	float direction;
 };
 

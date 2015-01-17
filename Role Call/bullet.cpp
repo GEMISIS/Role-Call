@@ -4,9 +4,12 @@ Bullet::Bullet(float x, float y, float direction, float distance)
 {
 	this->active = 1;
 	this->groupId = 2;
-	this->velocity.x = cos(direction / 180.0f * 3.14f);
-	this->velocity.y = sin(direction / 180.0f * 3.14f);
-	this->setPosition(x - this->getGlobalBounds().width / 2, y - this->getGlobalBounds().height / 2);
+	this->Load("ship.png");
+	this->setColor(sf::Color::Transparent);
+	this->setScale(0.25f, 0.25f);
+	this->velocity.x = cos(direction / 180.0f * 3.14f) * 3;
+	this->velocity.y = sin(direction / 180.0f * 3.14f) * 3;
+	this->setPosition(x + this->getGlobalBounds().width, y + this->getGlobalBounds().height);
 	this->distance = distance;
 }
 

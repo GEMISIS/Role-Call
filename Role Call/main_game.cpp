@@ -4,6 +4,7 @@
 #include "win_screen.h"
 
 #include "main_guy.h"
+#include "base_npc.h"
 
 bool gameOver = false;
 float startingX = 1280 / 2;
@@ -30,7 +31,8 @@ void main_game::Initialize(sf::RenderWindow* window)
 
 	map.Load(nextArea);
 
-	this->manager->Add("main_guy", new main_guy(&map, startingX, startingY));
+	this->manager->Add("main_guy", new main_guy(manager, &map, startingX, startingY));
+	this->manager->Add("main_gal", new base_npc(this->speech, &map, 200, 200));
 }
 void main_game::Update(sf::RenderWindow* window)
 {
