@@ -17,6 +17,7 @@ void main_game::Initialize(sf::RenderWindow* window)
 	this->score = new Score(*font, 64U);
 	this->lives = new Lives(*font, 64U);
 	this->lives->setPosition(window->getSize().x - this->lives->getGlobalBounds().width, 0);
+	this->speech = new Speech(*font, 32U, window);
 
 	this->pausedText = new sf::Text("Paused\nPress Escape to Quit", *font, 64U);
 	this->pausedText->setOrigin(this->pausedText->getGlobalBounds().width / 2, this->pausedText->getGlobalBounds().height / 2);
@@ -43,6 +44,13 @@ void main_game::Update(sf::RenderWindow* window)
 		{
 			coreState.SetState(new main_menu());
 			return;
+		}
+	}
+	else if (this->speech->speaking)
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return) && !this->enterKey)
+		{
+			this->speech->speaking = false;
 		}
 	}
 	else
@@ -72,6 +80,7 @@ void main_game::Render(sf::RenderWindow* window)
 	this->manager->Render(window);
 	window->draw(*this->score);
 	window->draw(*this->lives);
+	this->speech->Render();
 
 	if (this->paused)
 	{

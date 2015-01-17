@@ -7,6 +7,7 @@ main_guy::main_guy(Map* map, float x, float y)
 	this->setPosition(x, y);
 	this->map = map;
 	this->speed = 1.0f;
+	this->groupId = 1;
 }
 
 bool main_guy::Update(sf::RenderWindow* window)

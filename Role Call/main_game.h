@@ -4,6 +4,7 @@
 #include "game_state.h"
 #include "score.h"
 #include "lives.h"
+#include "speech.h"
 
 #include "map.h"
 
@@ -24,6 +25,7 @@ public:
 private:
 	Score* score;
 	Lives* lives;
+	Speech* speech;
 	sf::Text* pausedText;
 
 	sf::Font* font;
