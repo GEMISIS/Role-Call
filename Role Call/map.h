@@ -25,6 +25,8 @@ public:
 
 	int CheckCollision(Entity* entity, Direction direction);
 
+	std::string topArea, bottomArea, leftArea, rightArea;
+
 	~Map();
 protected:
 	std::string tileSet;

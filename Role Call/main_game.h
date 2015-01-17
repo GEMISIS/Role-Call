@@ -11,7 +11,8 @@
 #define PLAYER_AMMO 3
 
 extern bool gameOver;
-extern int enemyCount;
+extern float startingX, startingY;
+extern std::string nextArea;
 
 class main_game : public tiny_state
 {

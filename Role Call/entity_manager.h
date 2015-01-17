@@ -13,7 +13,7 @@ public:
 	void Add(std::string name, Entity* entity);
 	Entity* Get(std::string name);
 
-	void Update(sf::RenderWindow* window);
+	bool Update(sf::RenderWindow* window);
 	void Render(sf::RenderWindow* window);
 
 	~EntityManager();

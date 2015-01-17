@@ -12,7 +12,7 @@ public:
 
 	void Load(std::string filename);
 
-	virtual void Update(sf::RenderWindow* window);
+	virtual bool Update(sf::RenderWindow* window);
 
 	bool CheckCollision(Entity* entity);
 

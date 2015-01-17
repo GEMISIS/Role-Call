@@ -13,9 +13,10 @@ void Entity::Load(std::string filename)
 	this->setTexture(*this->texture);
 }
 
-void Entity::Update(sf::RenderWindow* window)
+bool Entity::Update(sf::RenderWindow* window)
 {
 	this->move(this->velocity);
+	return true;
 }
 void Entity::Collision(Entity* entity)
 {

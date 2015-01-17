@@ -16,6 +16,10 @@ void Map::Load(std::string filename)
 	std::ifstream mapFile("Graphics/maps/" + filename);
 
 	std::getline(mapFile, this->tileSet);
+	std::getline(mapFile, this->topArea);
+	std::getline(mapFile, this->bottomArea);
+	std::getline(mapFile, this->leftArea);
+	std::getline(mapFile, this->rightArea);
 
 	std::getline(mapFile, temp);
 	this->tileWidth = std::stoi(temp, nullptr);
@@ -119,4 +123,6 @@ int Map::CheckCollision(Entity* entity, Direction direction)
 Map::~Map()
 {
 	delete this->texture;
+	delete this->tileSetTexture;
+	delete this->data;
 }

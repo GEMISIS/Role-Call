@@ -3,7 +3,12 @@
 #include "game_over.h"
 #include "win_screen.h"
 
+#include "main_guy.h"
+
 bool gameOver = false;
+float startingX = 1280 / 2;
+float startingY = 768 / 2;
+std::string nextArea = "test.map";
 
 void main_game::Initialize(sf::RenderWindow* window)
 {
@@ -22,9 +27,9 @@ void main_game::Initialize(sf::RenderWindow* window)
 
 	manager = new EntityManager();
 
-	map.Load("test.map");
+	map.Load(nextArea);
 
-	//this->manager->Add("ship", new Ship(this->score, this->manager, window->getSize().x / 2, window->getSize().y));
+	this->manager->Add("main_guy", new main_guy(&map, startingX, startingY));
 }
 void main_game::Update(sf::RenderWindow* window)
 {
@@ -42,7 +47,10 @@ void main_game::Update(sf::RenderWindow* window)
 	}
 	else
 	{
-		this->manager->Update(window);
+		if (!this->manager->Update(window))
+		{
+			return;
+		}
 		this->score->Update();
 		this->lives->Update();
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return) && !this->enterKey)

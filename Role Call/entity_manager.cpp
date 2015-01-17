@@ -29,7 +29,7 @@ Entity* EntityManager::Get(std::string name)
 	}
 }
 
-void EntityManager::Update(sf::RenderWindow* window)
+bool EntityManager::Update(sf::RenderWindow* window)
 {
 	std::vector<std::string> toRemove;
 
@@ -58,7 +58,10 @@ void EntityManager::Update(sf::RenderWindow* window)
 			toRemove.push_back(iterator.first);
 			break;
 		default:
-			iterator.second->Update(window);
+			if (!iterator.second->Update(window))
+			{
+				return false;
+			}
 			break;
 		}
 	}
@@ -74,6 +77,8 @@ void EntityManager::Update(sf::RenderWindow* window)
 		}
 	}
 	toRemove.clear();
+
+	return true;
 }
 
 void EntityManager::Render(sf::RenderWindow* window)
