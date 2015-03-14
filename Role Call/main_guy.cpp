@@ -140,12 +140,22 @@ bool main_guy::Update(sf::RenderWindow* window)
 	return true;
 }
 
+#include "enemy.h"
+
 void main_guy::Collision(Entity* entity)
 {
 	switch (entity->GroupID())
 	{
 	case 3:
 		this->move(-this->velocity.x, -this->velocity.y);
+		break;
+	case 5:
+		enemy* temp = reinterpret_cast<enemy*>(entity);
+		temp->state = 5;
+
+		sf::Color seeThrough = temp->getColor();
+		seeThrough.a = 128;
+		temp->setColor(seeThrough);
 		break;
 	}
 }

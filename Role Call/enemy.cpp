@@ -9,6 +9,7 @@ enemy::enemy(Map* map, float x, float y)
 	this->map = map;
 	this->groupId = 5;
 	this->health = 1;
+	this->state = 0;
 }
 
 bool enemy::Update(sf::RenderWindow* window)
@@ -17,6 +18,18 @@ bool enemy::Update(sf::RenderWindow* window)
 	{
 		this->Destroy();
 	}
+
+	if (state == 0)
+	{
+		sf::Color seeThrough = this->getColor();
+		seeThrough.a = 255;
+		this->setColor(seeThrough);
+	}
+	else if (state > 0)
+	{
+		state -= 1;
+	}
+
 	Entity::Update(window);
 	return true;
 }

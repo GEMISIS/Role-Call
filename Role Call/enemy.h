@@ -9,6 +9,8 @@ public:
 	enemy(Map* map, float x, float y);
 	bool Update(sf::RenderWindow* window);
 	void Collision(Entity* entity);
+
+	int state;
 protected:
 	Map* map;
 	int health;

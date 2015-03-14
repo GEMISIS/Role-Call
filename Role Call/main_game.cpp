@@ -28,9 +28,9 @@ void main_game::Initialize(sf::RenderWindow* window)
 	manager = new EntityManager();
 
 	map = new Map(manager);
-	map->Load(saveSystem.currentMap, this->speech);
 
 	this->manager->Add("main_guy", new main_guy(manager, map, saveSystem.x, saveSystem.y));
+	map->Load(saveSystem.currentMap, this->speech);
 }
 void main_game::Update(sf::RenderWindow* window)
 {
